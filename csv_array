@@ -1,0 +1,21 @@
+<?php
+   class csv_array {
+        public $file_path;
+        public $encoding;
+        public function __construct($file_path, $encoding = "UTF-8"){
+            $this->file = new SplFileObject($file_path);
+            $this->file->setFlags(SplFileObject::READ_CSV);
+            $this->from_encoding = $encoding;
+        }
+
+        public function csv_array_convert(){
+            foreach ($this->file as $line){
+                if(!is_null($line[0])){
+                  mb_convert_variables("UTF-8", $this->from_encoding, $line);
+                  $records[] = $line;
+                }
+            }
+            return $records;
+        }
+    }
+?>
